@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/sign in.css' %}">
+<style>
+  body {
+    background-image: url("{% static 'image/bg_sign.png' %}");
+  }
+
+  .valid-feedback {
+    color: green;
+  }
+
+  .invalid-feedback {
+    color: red;
+  }
+</style>
+
+<div class="container main_div">
+  <section class="row px-4 section_2_sign">
+    <form class="row g-3 needs-validation" method="POST" novalidate id="signupForm">
+      {% csrf_token %}
+      <h1 class="form_h1">Sign Up</h1>
+
+      <!-- Name Field -->
+      <div class="col-md-12">
+        <input type="text" class="form-control" placeholder="Name" name="name" required>
+        <div class="invalid-feedback">Name is required.</div>
+      </div>
+
+      <!-- Email Field -->
+      <div class="col-md-12">
+        <input type="email" class="form-control" placeholder="Email" name="email" required>
+        <div class="invalid-feedback">Please enter a valid email.</div>
+      </div>
+
+      <!-- Phone Number Field -->
+      <div class="col-md-12">
+        <input type="number" class="form-control" placeholder="Phone number" name="phone_number" required>
+        <div class="invalid-feedback">Phone number is required.</div>
+      </div>
+
+      <!-- Address Field -->
+      <div class="col-12">
+        <input type="text" class="form-control" placeholder="Address: House name or number, Place" name="address" required>
+        <div class="invalid-feedback">Address is required.</div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="col-md-12">
+        <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+        <div class="invalid-feedback">Password is required.</div>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="col-md-12">
+        <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" name="confirm_password" required>
+        <div class="invalid-feedback" id="passwordMsg">Passwords do not match.</div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" id="submitBtn">Sign Up</button>
+      </div>
+    </form>
+
+    <!-- Bootstrap Validation Script -->
+    <script>
+      document.getElementById('signupForm').addEventListener('submit', function (event) {
+        const form = this;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+        const passwordMsg = document.getElementById('passwordMsg');
+
+        if (form.checkValidity() === false || password !== confirmPassword) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          if (password !== confirmPassword) {
+            document.getElementById('confirm_password').classList.add('is-invalid');
+            passwordMsg.innerText = "Passwords do not match.";
+          } else {
+            document.getElementById('confirm_password').classList.remove('is-invalid');
+          }
+        } else {
+          document.getElementById('confirm_password').classList.remove('is-invalid');
+          alert("Form submitted successfully!");
+        }
+        form.classList.add('was-validated');
+      });
+    </script>
+  </section>
+</div>
+
+{% endblock %}

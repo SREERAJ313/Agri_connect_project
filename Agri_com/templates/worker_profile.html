@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Worker profile {% endblock %}
+
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-4">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Worker Profile</h3>
+            <h4 class="mb-0">{{ worker.name }}</h4>
+            
+        </div>
+
+        <div class="card-body">
+            <div class="text-center mb-4 position-relative">
+                {% if worker.image %}
+                    <img src="{{ worker.image.url }}" alt="Profile Image" class="rounded-circle" width="150" height="150" id="profileImage">
+                {% else %}
+                    <img src="{% static '/image/agri_1.png' %}" alt="Default Profile Image" class="rounded-circle" width="150" height="150" id="profileImage">
+                {% endif %}
+            
+                <!-- ✏️ Pen Icon for Upload -->
+                <label for="imageUpload" class="position-absolute" style="right: 40%; bottom: 5px; cursor: pointer;">
+                    <i class="fas fa-pen edit-icon bg-white p-2 rounded-circle shadow-sm"></i>
+                </label>
+            
+                <!-- Hidden File Input -->
+                <input type="file" id="imageUpload" style="display: none;" accept="image/*" name="image" onchange="uploadImage()">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <div class="d-flex">
+                    <input type="text" name="name" class="form-control" id="nameInput" value="{{ worker.name }}" readonly
+                           onblur="autoSave('name', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('nameInput')"></i>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control" id="phoneInput" value="{{ worker.phone }}" readonly
+                           onblur="autoSave('phone', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('phoneInput')"></i>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <div class="d-flex">
+                    <input type="email" class="form-control" id="emailInput" value="{{ worker.email }}" readonly>
+                          
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control" id="addressInput" value="{{ worker.address }}" readonly
+                           onblur="autoSave('address', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('addressInput')"></i>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price Type</label>
+                <div class="d-flex">
+                    
+                <select class="form-select" id="selectInput" name="price_type" onblur="autoSave('price_type', this.value)" readonly>
+                    <option selected>{{worker.price_type}}</option>
+                    <option selected value="per day">Per Day</option>
+                    <option  value="per hour">Per Hour</option>
+                  
+                    
+                </select>
+                           
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('selectInput')"></i>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Price</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control" id="priceInput" value="{{ worker.price }}" readonly
+                           onblur="autoSave('price', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('priceInput')"></i>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Work Category</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control" id="work_categoryInput" value="{{ worker.work_category }}" readonly
+                           onblur="autoSave('work_category', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('work_categoryInput')"></i>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Work Name</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control" id="work_nameInput" value="{{ worker.work_name }}" readonly
+                           onblur="autoSave('work_name', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('work_nameInput')"></i>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Experiance</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control" id="work_experienceInput" value="{{ worker.experience }}" readonly
+                           onblur="autoSave('work_experience', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('work_experienceInput')"></i>
+                </div>
+            </div>
+
+          
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function enableEdit(id) {
+        const input = document.getElementById(id);
+        input.removeAttribute('readonly');
+        input.focus();
+    }
+
+    function autoSave(field, value) {
+        fetch("{% url 'worker_profile_edit' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                'field': field,
+                'value': value
+            })
+        }).then(response => {
+            if (response.ok) {
+                console.log(`${field} updated`);
+            } else {
+                console.error('Update failed');
+            }
+        });
+    }
+    function uploadImage() {
+    const imageInput = document.getElementById('imageUpload');
+    const file = imageInput.files[0];
+
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    fetch("{% url 'worker_profile_image_upload' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('profileImage').src = data.image;
+            console.log("Image updated!");
+        } else {
+            alert("Image upload failed.");
+        }
+    });
+}
+</script>
+    
+
+{% endblock %}

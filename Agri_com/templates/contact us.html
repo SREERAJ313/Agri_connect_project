@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+        }
+        .contact-form {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .contact-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .contact-form button {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background: #218838;
+        }
+    
+    #btn-loader {
+        font-size: 14px;
+        color: #fff;
+        margin-left: 8px;
+    }
+</style>
+
+    </style>
+</head>
+<body>
+    <div class="contact-form">
+        <h2>Contact Us</h2>
+        <form method="POST" id="contact-form">
+           
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" id="name" value="{{check_U.name}}" required readonly>
+            <input type="email" name="email" placeholder="Your Email" id="email" value="{{check_U.email}}" required readonly>
+            <input type="text" name="subject" placeholder="Subject" id="subject" required>
+            <textarea name="message" rows="6" placeholder="Your Message" id="message" required></textarea>
+            <button type="submit" id="submit-btn">
+                <span id="btn-text">Send Message</span>
+                <span id="btn-loader" style="display:none;">Sending...</span>
+            </button>
+            
+        </form>
+        {% if success %}
+            <p style="color: green;">Your message has been sent successfully.</p>
+        {% endif %}
+    </div>
+   <!-- Load emailjs first -->
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+   <script>
+       (function(){
+           emailjs.init("CGgPn-Ov-McKqXawB"); // Your EmailJS Public Key
+       })();
+   
+       document.getElementById("contact-form").addEventListener("submit", function(event) {
+           event.preventDefault();
+   
+           // Show loader, hide button text
+           document.getElementById("btn-text").style.display = "none";
+           document.getElementById("btn-loader").style.display = "inline";
+   
+           emailjs.send("service_sfzz8ua", "template_val9b66", {
+               name: document.getElementById("name").value,
+               email: document.getElementById("email").value,
+               subject: document.getElementById("subject").value,
+               message: document.getElementById("message").value
+           }).then(
+               function(response) {
+                   alert("Message sent successfully!");
+                   document.getElementById("contact-form").reset();
+   
+                   // Reset button UI
+                   document.getElementById("btn-text").style.display = "inline";
+                   document.getElementById("btn-loader").style.display = "none";
+               },
+               function(error) {
+                   alert("Failed to send message. Try again later.");
+   
+                   // Reset button UI
+                   document.getElementById("btn-text").style.display = "inline";
+                   document.getElementById("btn-loader").style.display = "none";
+               }
+           );
+       });
+   </script>
+   
+
+    <!-- <script src="email.js"></script> -->
+</body>
+</html>

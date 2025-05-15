@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} seller_area {% endblock %}
+
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow-lg rounded-4">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">Seller Profile</h3>
+        </div>
+
+        <div class="card-body">
+            <div class="text-center mb-4 position-relative">
+                {% if check_U.user_img %}
+                    <img src="{{ check_U.user_img.url }}" alt="Profile Image" class="rounded-circle" width="150" height="150" id="profileImage">
+                {% else %}
+                    <img src="{% static '/image/agri_1.png' %}" alt="Default Profile Image" class="rounded-circle" width="150" height="150" id="profileImage">
+                {% endif %}
+            
+                <!-- ✏️ Pen Icon for Upload -->
+                <label for="imageUpload" class="position-absolute" style="right: 40%; bottom: 5px; cursor: pointer;">
+                    <i class="fas fa-pen edit-icon bg-white p-2 rounded-circle shadow-sm"></i>
+                </label>
+            
+                <!-- Hidden File Input -->
+                <input type="file" id="imageUpload" style="display: none;" accept="image/*" name="user_img" onchange="uploadImage()">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <div class="d-flex">
+                    <input type="text" name="name" class="form-control" id="nameInput" value="{{ check_U.name }}" readonly
+                           onblur="autoSave('name', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('nameInput')"></i>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <div class="d-flex">
+                    <input type="text" class="form-control" id="phoneInput" value="{{ check_U.phone_number }}" readonly
+                           onblur="autoSave('phone', this.value)">
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('phoneInput')"></i>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <div class="d-flex">
+                    <input type="email" class="form-control" id="emailInput" value="{{ check_U.email }}" name="email" readonly>
+                          
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <div class="d-flex">
+                    <input type="email" class="form-control" id="addressInput" value="{{ check_U.address }}" name="address" onblur="autoSave('address', this.value)" readonly>
+                    <i class="fas fa-pen edit-icon" onclick="enableEdit('addressInput')"></i>    
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<script>
+    function enableEdit(id) {
+        const input = document.getElementById(id);
+        input.removeAttribute('readonly');
+        input.focus();
+    }
+
+    function autoSave(field, value) {
+        fetch("{% url 'user_profile_edit' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                'field': field,
+                'value': value
+            })
+        }).then(response => {
+            if (response.ok) {
+                console.log(`${field} updated`);
+            } else {
+                console.error('Update failed');
+            }
+        });
+    }
+    function uploadImage() {
+    const imageInput = document.getElementById('imageUpload');
+    const file = imageInput.files[0];
+
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('user_img', file);
+
+    fetch("{% url 'user_profile_image_upload' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('profileImage').src = data.image_url;
+            console.log("Image updated!");
+        } else {
+            alert("Image upload failed.");
+        }
+    });
+}
+</script>
+    
+
+{% endblock %}

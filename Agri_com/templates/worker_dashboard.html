@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Worker dashbord {% endblock %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/worker_dashboard.css' %}">
+<div class="sidebar">
+    <h4 class="text-center text-white">Worker Dashboard</h4>
+    
+    <a href="{% url 'worker_dashboard' %}">My Works</a>
+    
+    <a href="{% url 'Work_history' %}">My Works History</a>
+    
+    <a href="{% url 'image_upload' %}">Add Work Images</a>
+    <a href="{% url 'worker_profile' %}">Worker Profile</a>
+</div>
+<div class="content">
+    <h2 class="text-center">My Works</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Work List</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        
+                        <th>User Who Hiered</th>
+                        <th>Hire Date</th>
+                        <th>Work place</th>
+                        <th>Number of Workers</th>
+                        <th>Contact number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for w in works %}
+                    <tr>
+                        <td>{{ w.user }}</td>
+                        <td>{{ w.hire_date}}</td>
+                        <td>{{ w.address }}</td>
+                        <td>{{ w.worker_count }}</td>
+                        <td>{{ w.phone_number }}</td>
+                        <td>
+                            {% if w.status == "pending" %}
+                              <form method="post" action="{% url 'select_hire_status' id=w.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="accepted">
+                                <button type="submit" title="Accept" class="btn btn-success " >✅ accept</button>
+                              </form>
+                              <form method="post" action="{% url 'select_hire_status' id=w.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="rejected">
+                                <button type="submit" title="Reject" class="btn btn-danger">❌ Reject</button>
+                              </form>
+                            {% else %}
+                              <span class="{% if w.status == 'accepted' %}text-white bg-success p-1 {% elif w.status == 'rejected' %}text-white bg-danger p-1{% else %}text-white bg-warning p-1{% endif %} font-weight-bold">
+                                {{ w.status|title }}
+                              </span>
+                            {% endif %}
+                          </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+</div>
+    
+    
+    
+    
+{% endblock %}

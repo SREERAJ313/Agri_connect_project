@@ -1,0 +1,266 @@
+header{
+    background-color: #fdfdfd;
+    color: rgb(5, 109, 255);
+    /* padding: 10px 0; */
+    /* text-align: ; */
+    font-weight: bold;
+    display:flex;
+    width: 100%;
+    height: 90px;
+    position: sticky;
+    top: 0;
+    
+    opacity: 0.9;
+    z-index: 1000;
+    text-align: center;
+    margin-bottom: 0;
+    border-radius: 10px;
+    
+    
+    
+}
+.nav_bar{
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0 20px;
+    margin: 0;
+    width: max-content;
+    height: inherit;
+    /* background-color: #4effa9; */
+    position: absolute;
+    right: 5%;
+    top: 10px;
+    gap: 10px;
+    
+}
+.nav_anchor {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    /* background-color: aliceblue; */
+    color: rgb(5, 109, 255);
+
+    margin-left:  0px;
+    margin-top: 0px;
+    margin-bottom: 30px;
+    font-size: 30px;
+    
+    
+   
+    
+}
+
+.h1_header
+{
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
+    /* font-weight: bold; */
+    margin-left: 50px;
+    margin-top:15px;
+    font-family: "Big Shoulders Stencil", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    letter-spacing: 5px;
+}
+
+
+.nav_txt
+{
+ 
+   /* display: none; */
+   position: absolute;
+   top: 10px;
+   margin-top: 40px;
+   font-size: 15px;
+ 
+  
+}
+.nav_anchor:hover
+{
+    font-size: 45px;
+    margin-top: 5px;
+    color: rgb(255, 167, 25);
+}
+.nav_anchor:active
+{
+    transform: scale(0.5);
+    transition: 0.1s;
+    color:rgb(11, 237, 49);
+    
+    
+}
+.nav_anchor:active + .nav_txt
+{
+  display: none;
+}
+.nav_anchor:hover .nav_txt
+{
+  display: none;
+}
+
+
+
+
+
+
+
+body{
+    margin: 0;
+    padding: 0;
+ 
+   
+}
+.img_div{
+   filter: blur(0.2px);
+   height: 400px;
+   border-bottom-left-radius: 30px ;
+   border-bottom-right-radius:30px ;
+}
+.slider_div
+{
+    border-top-left-radius: 30px ;
+    border-top-right-radius:30px ;
+
+}
+
+footer {
+    background: linear-gradient(to right, #065f46, #047857);
+    color: #fff;
+    padding: 1rem ;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    
+  }
+
+  footer h2 {
+    font-size: 1.75rem;
+    font-weight: bold;
+  }
+
+  footer p, footer ul li a {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  footer ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  footer ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+
+  }
+
+  footer ul li a:hover {
+    color: #6ee7b7;
+  }
+
+  footer .social-icons a {
+    font-size: 2rem;
+    margin-right: 1rem;
+    transition: color 0.3s;
+    margin-bottom: 20px;
+  }
+
+  footer .social-icons a:hover {
+    color: #6ee7b7;
+  }
+
+  footer .border-t {
+    border-top: 1px solid #10b981;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    gap: 25.3rem;
+    margin-top: 30px;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .navbar-brand 
+  {
+      margin: 0;
+      padding: 0;
+      font-size: 50px;
+      /* font-weight: bold; */
+      margin-left: 50px;
+      /* margin-top:px; */
+      font-family: "Big Shoulders Stencil", sans-serif;
+      font-weight: 900;
+      font-style: normal;
+      letter-spacing: 5px;
+      color: rgb(5, 109, 255);
+
+  }
+  .user_nav
+  {
+    
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    /* padding: 0 20px; */
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: #0db262; */
+    
+    
+
+  }
+.search_form
+{
+  margin-right: 10%;
+  margin-top: 15px;
+  width: 500px;
+ 
+}
+.offcanvas
+{
+  background-color: rgb(11, 237, 49) none !important
+}
+.nav_bar2{
+  display:none;
+  width: 100%;
+  background-color: white !important;
+
+  
+
+}
+.navbar-a{
+  color: #10b981;
+}
+.user_header
+{
+  display: block;
+  border-radius: 0;
+ 
+
+}
+.nav-item1{
+  border-left: 1px solid black;
+}
+.nav-item a:hover{
+  background-color: rgba(60, 255, 0, 0.718);
+  color: #ffffff !important;
+}
+.user_header:hover .nav_bar2
+{
+
+  display: flex;
+  /* background-color: #10b981; */
+  opacity: 1;
+ 
+}

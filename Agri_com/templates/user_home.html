@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} User Home {% endblock %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/user_home.css' %}">
+
+
+<section class="row  px-4 section_1">
+
+      <div class="col container section_1_sub_1">
+        <h1 class="agri_txt">AGRI CONNECT</h1>
+        <br>
+        
+        <p class="agri_p_txt"> Welcome to AgriConnect <br>
+
+        your trusted platform for agriculture solutions. We are dedicated to bridging the gap between farmers, agricultural workers, and buyers by providing a seamless marketplace for hiring skilled labor and purchasing essential farming products.</p>
+      </div>
+   
+  
+  
+
+</section>
+<section class="row px-4 section_2">
+  <div class="container con ">
+    <h1>PRODUCTS</h1>
+    <div class="row g-2 column-gap-3 me-5 " >
+      {% for p in products %}
+      {% if p.categories == 'products' %}
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 card cards ">
+        <img src="{{ p.image_url.url }}" class="card-img-top card_img" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ p.p_name }}</h5>
+          
+          <p class="card-text">{{ p.description }}</p>
+          <div class="d-flex align-items-center">
+            {% if p.seller.profile_image %}
+            <img src="{{ p.seller.profile_image.url }}" alt="Profile" class="rounded-circle me-2" width="40" height="40">
+            {% else %}
+            <img src="{% static 'image/agri_1.png' %}" alt="Default Profile" class="rounded-circle me-2" width="40" height="40">
+            {% endif %}
+            <span class="fw-">{{ p.seller.name }}</span>
+          </div>
+          
+         <br>
+          <a href="{% url 'Product_view_page' id=p.id %}" class="btn btn-primary">MORE</a>
+        </div>
+      </div>
+      {% endif%}
+         {% endfor %}
+    </div>
+   
+  </div>
+
+</section>
+<br>
+<br>
+
+<section class="row  px-4 section_1">
+  <div class="container con ">
+    <h1>Workers</h1>
+    {% for w in workers %}
+   
+    <div class="row g-2 column-gap-3 me-5 " >
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 cards">
+        <img src="{{ w.image.url }}" class="card-img-top W_card_img" alt="...">
+        <div class="card-body">
+          <h5 class="card-title h2 text-center" style="text-transform:uppercase;">{{ w.name }}</h5>
+          <br>          
+          <p class="card-text">{{ w.work_category }} , {{ w.work_name }}</p>
+          <p class="card-text h4"> Experiance : {{ w.experience }}</p>
+
+          <p class="card-text h3 text-warning">{{ w.price_type }} - {{ w.price }}</p>
+          <p class="card-text"></p>
+          
+          <p class="card-text">{{ w.rating }}</p>
+        
+         
+          <a href="{% url 'user_worker_hire' id=w.id %}" class="btn btn-primary" style="margin-left: 110px;">Hire</a>
+        </div>
+      </div>
+     
+         {% endfor %} 
+
+      </div>
+      
+    </div>
+  </div>
+
+
+</section>
+<br>
+<br>
+<section class="row px-4 section_2">
+  <div class="container con ">
+    <h1>TOOLS</h1>
+
+    <div class="row g-2 column-gap-3 me-5 " >
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 card cards ">
+        <img src="" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">MORE</a>
+        </div>
+         </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 cards"> </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 cards"> </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 cards"> </div>
+      <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 cards"> </div>
+    </div>
+  </div>
+
+</section>
+
+
+{% endblock %}

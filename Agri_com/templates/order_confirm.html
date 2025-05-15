@@ -1,0 +1,117 @@
+{% load math_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm Your Order</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 bg-white p-4 shadow rounded-3">
+      
+      <form method="POST" action="{% url 'place_order' %}">
+        {% csrf_token %}
+
+        <h2 class="mb-4 text-center">🧾 Confirm Your Order</h2>
+        
+        <!-- Selected Products -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Selected Products</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for product in selected_products %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <img src="{{ product.product.image_url.url }}" alt="{{ product.product.p_name }}" class="img-fluid me-2" style="width: 50px; height: 50px; object-fit: cover;">
+                {{ product.product.p_name }}
+                <input type="hidden" name="selected_products" value="{{ product.id }}">
+                <span class="badge bg-success">Qty: {{ product.quantity }}</span>
+                <span class="badge bg-primary">price: ₹{{ product.product.price }}</span>
+                <span class="badge bg-danger">Total: ₹{{ product.product.price|multiply:product.quantity }}</span>
+                <input type="hidden" name="product_price_{{ product.id }}" value="{{ product.product.price|multiply:product.quantity }}">
+              </li>
+            {% empty %}
+              <li class="list-group-item text-muted">No products selected.</li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <strong>Total Amount:</strong>
+                <input type="hidden" name="total_price" value="{{ total_price }}">
+              <span class="badge bg-danger">₹{{ total_price }}</span>
+          </ul>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-3">
+          <label for="phone_number" class="form-label">📞 Phone Number</label>
+          <input type="text" class="form-control" id="phone_number" name="phone_number" required placeholder="Enter your phone number">
+        </div>
+
+        <!-- Address Selection -->
+        <div class="mb-3">
+          <label for="address_option" class="form-label">Address Option:</label>
+          <select id="address_option" class="form-select" onchange="toggleAddressFields()" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="current">Use Current Address</option>
+            <option value="new">➕ Add new address</option>
+          </select>
+        </div>
+
+        <div id="current_address" class="mb-3" style="display: none; overflow:auto; height: 200px;">
+          <label class="form-label">Current Address:</label>
+          {% for a in address %}
+            <div class="card mb-2 p-2 border">
+              <label class="w-100">
+                <input type="radio" name="selected_address" value="{{ a.id }}" required>
+                <div class="ms-2 d-block">
+                  <p class="card-text mb-0">
+                    <strong>Address_line:</strong> {{ a.address_line }}<br>
+                    <strong>City:</strong> {{ a.city }}<br>
+                    <strong>State:</strong> {{ a.state }}<br>
+                    <strong>Zip Code:</strong> {{ a.zip_code }}<br>
+                    <strong>Country:</strong> {{ a.country }}
+                  </p>
+                </div>
+              </label>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Submit -->
+        <div class="d-flex justify-content-between">
+          <a href="{% url 'kart_list' %}" class="btn btn-secondary">⬅️ Back to Cart</a>
+          <button type="submit" class="btn btn-success">✅ Place Order</button>
+
+          
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleAddressFields() {
+            const addressOption = document.getElementById('address_option').value;
+            
+            const currentAddress = document.getElementById('current_address');
+            if (addressOption === 'current') {
+               
+                currentAddress.style.display = 'block';
+
+                // Navigate to another page
+                
+            } 
+            else {
+                window.location.href = "{% url 'address_page' %}";
+            }
+
+            window.addEventListener('DOMContentLoaded', function () {
+                toggleAddressFields(); });
+        }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} seller_area {% endblock %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/seller_area.css' %}">
+<div class="sidebar">
+    <h4 class="text-center text-white">Seller Dashboard</h4>
+    
+    <a href="#productList">My Products</a>
+    <a href="{% url 'seller_orders' %}">My orders</a>
+    <a href="{% url 'sell_page' %}">Add Product</a>
+    <a href="{% url 'seller_profile' %}">Seller Profile</a>
+</div>
+<div class="content">
+    <h2>My Products</h2>
+    <table class="table table-bordered" id="productList">
+        <thead>
+            <tr>
+                
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for p in products %}
+            <tr>
+                <td>{{ p.p_name }}</td>
+                <td>{{ p.price }}</td>
+                <td>{{ p.categories }}</td>
+                <td>{{ p.stock }}</td>
+                <td>
+                    <img src="{{ p.image_url.url }}" alt="Product Image" style="height: 100px; width: 100px;">
+
+                </td>
+                
+                <td>
+                    <a href="{% url 'productEdit' id=p.id %}" class="btn btn-warning btn-sm" >Edit</a>
+                    <a href="{% url 'product_delete' id=p.id %}" 
+
+                    class="btn btn-danger btn-sm"
+                    onclick="return confirm('Are you sure you want to delete {{ product.p_name }}?');">
+                    Delete
+                 </a>
+                 <a href="{% url 'product_image_upload' id=p.id %}"  class="btn btn-success btn-sm"> add more image</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+    
+
+{% endblock %}

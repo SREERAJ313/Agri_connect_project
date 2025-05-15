@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hire Successful</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <!-- Success Message -->
+    <div class="alert alert-success text-center p-4 shadow-sm">
+        <h2><i class="bi bi-check-circle-fill text-success"></i> Hire Request Submitted</h2>
+        <p class="fs-5 mb-0">Your request has been sent to the worker successfully.</p>
+    </div>
+
+    <!-- What Happens Next -->
+    <div class="card p-4 mt-4 shadow-sm border-0">
+        <h4 class="mb-3">What Happens Next?</h4>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <strong>Pending:</strong> Your request is waiting for the worker's response. Please be patient.
+            </li>
+            <li class="list-group-item">
+                <strong>Accepted:</strong> The worker has accepted your request and will contact you soon.
+            </li>
+            <li class="list-group-item">
+                <strong>Rejected:</strong> The worker is not available. You can try hiring a different one.
+            </li>
+        </ul>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row text-center mt-4">
+        <div class="col-md-4 mb-2">
+            <a href="{% url 'user_home' %}" class="btn btn-outline-primary w-100">🏠 Go to Home</a>
+        </div>
+        <div class="col-md-4 mb-2">
+            <a href="" class="btn btn-outline-success w-100">📋 Check Hire Status</a>
+        </div>
+        <div class="col-md-4 mb-2">
+            <a href="" class="btn btn-outline-secondary w-100">👷 Hire Another Worker</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

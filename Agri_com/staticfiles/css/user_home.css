@@ -1,0 +1,76 @@
+.section_1
+{
+    /* background: rgb(0,196,106); */
+    background: linear-gradient(90deg, rgba(0,196,106,1) 0%, rgba(20,255,68,1) 56%, rgba(0,196,106,1) 100%);
+    width: 100%;
+    height:500px;
+    margin: 0;
+    /* margin-top: 10px; */
+   
+    /* margin-bottom: 10px; */
+   
+    border-top-left-radius: 30px ;
+    border-top-right-radius:30px ;
+}
+.section_1_sub_1
+{
+    text-align: center;
+    width:50%;
+    height: 50%;
+    margin-top: 0px;
+    
+    /* border-top-left-radius:10px ;
+    border-top-right-radius:10px ; */
+
+}
+.agri_txt
+{
+    font-size: 70px;
+    font-family: "Funnel Sans", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    color: #ffffff; 
+  
+    margin-left: 20px;
+    margin-top: 10px;
+  
+}
+.agri_p_txt{
+    font-size: 20px;
+  
+  .section_2
+{
+    background: rgb(255, 255, 255);
+
+    width: 100%;
+    height: fit-content;
+    margin: 0;
+    padding: 10px;
+ 
+}  color: white;
+    margin-left: 20px;
+    margin-top: 10px;
+    text-shadow: 1px 1px 2px rgb(138, 132, 132);
+    font-family: "Lucida Console", Monaco, monospace;
+}
+.section_2
+{
+    background: rgb(255, 255, 255);
+
+    width: 100%;
+    height: 500px;
+    margin: 0;
+    padding: 10px;
+ 
+}
+.con{
+    position: absolute;
+    top: 50% ;
+}
+.cards{
+    height: 400px;
+    width: 300px;
+     
+    
+
+}

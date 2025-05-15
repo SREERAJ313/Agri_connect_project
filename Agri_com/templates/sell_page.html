@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Seller Dashboard {% endblock %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/sell_page.css' %}">
+
+</head>
+<body>
+
+<div class="container mt-5">
+<h2 class="text-center">Upload Your Product</h2>
+<div class="card p-4 shadow-sm">
+    <form method="POST" enctype="multipart/form-data"  >
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Product Name</label>
+            <input type="text" class="form-control" placeholder="Enter product name" name="p_name" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select class="form-select" name="categories" required>
+                <option selected>Select category</option>
+                <option value="products">Products</option>
+                <option value="tools">Tools</option>
+                <option value="seeds">Seeds</option>
+                <option value="fertilizer">Fertilizers</option>
+                <option value="machinery">Machinery</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Price (₹)</label>
+            <input type="number" class="form-control" placeholder="Enter price" name="price" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Quantity</label>
+            <input type="number" class="form-control" placeholder="Enter quantity" name="stock" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" rows="3" placeholder="Enter product details" name="description" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Product Image</label>
+            <input type="file" class="form-control" id="productImage" accept="image/*"  name="image_url" required>
+            <img id="preview" class="preview-img img-thumbnail">
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success w-100">Upload Product</button>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+document.getElementById('productImage').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.getElementById('preview');
+            img.src = e.target.result;
+            img.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+
+
+
+{% endblock %}

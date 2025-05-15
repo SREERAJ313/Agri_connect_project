@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Order History</h2>
+
+    <!-- Loop through each order -->
+    {% for order in orders %}
+    {% if order.status == "delivered" or order.status == "canceled" %}
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                    <h5 class="card-title mb-1 text-uppercase">Order : {{ order.product.p_name}}</h5>
+                    <small class="text-muted">Date: {{ order.order_date }}</small>
+                </div>
+                <span class="badge bg-success p-2 text-uppercase">{{ order.status }}</span>
+                <small class="text-muted">Date: {{ order.expected_delivery_date }}</small>
+                
+            </div>
+
+            <p class="mb-2"><strong>Items:</strong></p>
+            <ul class="list-group list-group-flush mb-3">
+               
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ order.product.image_url.url }}" alt="{{ order.product.p_name }}" class="img-thumbnail me-2" style="width: 50px; height: 50px;">
+                        <span>{{ order.product.p_name }}</span>
+                    </div>
+                    <span class="badge bg-primary">Price : ₹{{ order.product.price }}</span>
+                    <span class="badge bg-secondary"> Quantity : {{ order.quantity }} <br></span>
+                </li>
+
+            </ul>
+
+            <div class="d-flex justify-content-between">
+                <strong>Total: ₹{{ order.total_price }}</strong>
+                <!-- <a href="x" class="btn btn-outline-primary btn-sm">View Details</a> -->
+            </div>
+        </div>
+    </div>
+
+
+    
+   
+ 
+    {% endif %}
+
+    {% endfor %}
+</div>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

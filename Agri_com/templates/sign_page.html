@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Log in {% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/sign.css' %}">
+<style>
+  body {
+    background-image: url("{% static 'image/bg_sign.png' %}");
+  }
+
+  .invalid-feedback {
+    color: red;
+  }
+
+  .valid-feedback {
+    color: green;
+  }
+</style>
+
+<div class="container main_div">
+  <br>
+  <section class="row px-4 section_1_sign">
+    <form class="col container section_1_sub_1 needs-validation" method="POST" novalidate id="loginForm">
+      {% csrf_token %}
+      <br><br>
+
+      <h1 class="form_h1">LOG IN</h1>
+      <br><br>
+
+      <div class="mb-3">
+        <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+        <div class="invalid-feedback">Please enter a valid email.</div>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+        <div class="invalid-feedback">Password is required.</div>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <button type="submit" class="btn form_btn">Submit</button>
+      <br><br>
+
+      <a href="{% url 'sign_in' %}" class="form_a">Don't have an account? Sign Up</a>
+      <br>
+      <a href="#" class="">Forgot your password?</a>
+      <br><br>
+      <hr style="border: 0.5px solid rgb(192, 190, 190);">
+      <br><br>
+
+      <div class="login-container">
+        <button type="button" class="login-btn google-btn">
+          <img src="{% static 'image/google.png' %}" alt="Google Symbol"> Continue with Google
+        </button>
+
+        <button type="button" class="login-btn facebook-btn">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook Logo">
+          Continue with Facebook
+        </button>
+      </div>
+
+    </form>
+
+    <script>
+      (function () {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      })();
+    </script>
+  </section>
+</div>
+<br>
+
+{% endblock %}

@@ -1,0 +1,139 @@
+body {
+   
+   
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: max-content;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    
+
+}
+.main_div
+{
+    height: 100%;
+    width: 100%;
+}
+
+.section_1_sign
+{
+    
+    position: absolute;
+    top: 30%;
+    left: 36%; 
+    /* opacity: 0.9; */ 
+    height: 700px;
+    width: 500px ;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    
+}
+.section_2_sign
+{
+    
+    
+    position: absolute;
+    top: 30%;
+    left: 36%;    
+    /* opacity: ; */
+    height: 700px;
+    width: 500px ;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    
+}
+.form_btn
+{
+    margin-top: 20px;
+    border: 2px solid rgb(62, 205, 5);
+    width: 100px;
+    font-size: medium;
+    font-weight: bold;
+    color: rgb(62, 205, 5);
+}
+.form_btn:hover
+{
+    /* border: 2px solid rgb(58, 5, 205); */
+    background-color: rgb(31, 13, 221);
+    width: 100px;
+    font-size: medium;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+.form_h1
+{
+    text-align: center;
+    font-size: 50px;
+    color: rgb(36, 129, 10);
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+/* General Container */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: max-content;
+    gap: 15px;
+    /* background-color: #f4f4f4; */
+}
+
+/* Button Styles */
+.login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    width: 280px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Google Button */
+.google-btn {
+    background-color: white;
+    color: #4a4a4a;
+    border: 1px solid #ddd;
+}
+
+.google-btn:hover {
+    background-color: #f8f8f8;
+}
+
+/* Facebook Button */
+.facebook-btn {
+    background-color: #1877f2;
+    color: white;
+    border: none;
+}
+
+.facebook-btn:hover {
+    background-color: #145dbf;
+}
+
+/* Icon Styling */
+.login-btn img {
+    width: 20px;
+    height: 20px;
+}
+

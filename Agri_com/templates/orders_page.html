@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar (optional) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">AgriPlatform</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Left nav links -->
+        <ul class="navbar-nav me-auto">
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'worker_orders' %}">Wokers Orders</a>
+          </li>
+        </ul>
+  
+        <!-- Right nav actions -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+
+<!-- Main content -->
+<!-- Main content -->
+<div class="container">
+    <h2 class="mb-4">My Orders</h2>
+
+    {% if orders %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for order in orders %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <img src="{{ order.product.image_url.url }}" class="card-img-top" alt="{{ order.product.p_name }}" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title text-uppercase">{{ order.product.p_name }}</h5>
+            <p class="card-text">{{ order.product.description|truncatechars:100 }}</p>
+            <p class="card-text">Quantity: {{ order.quantity }}</p>
+            <p class="fw-bold text-success">₹{{ order.total_price }}</p>
+          </div>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <small class="text-muted"> Ordered : {{ order.order_date|date:"d-m-Y H:i" }}</small>
+            <span class="badge bg-{{ order.status|lower|yesno:'success,warning,danger' }}">
+
+             <h6 class="text-uppercase"> {{ order.status }} </h6>
+              
+         
+              <small class="text-white"> Date : {{ order.expected_delivery_date|date:"Y-m-d H:i" }}</small> 
+            </span>
+            
+            
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+      You don't have any orders yet.
+    </div>
+    {% endif %}
+</div>
+
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

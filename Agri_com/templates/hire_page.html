@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hire Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="card shadow" style="width: 50%; padding: 20px;">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Hire Workers</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <!-- <input type="text" name="worker_id" value="{{ worker.name }}" readonly> -->
+                    <div class="mb-3">
+                        <label for="address_option" class="form-label">Address Option:</label>
+                        <select id="address_option" class="form-select" onchange="toggleAddressFields()">
+                            <option value="" disabled selected>Select an option</option>
+                            <option value="current">Use Current Address</option>
+                            <option value="new">➕ Add new address</option>
+                        </select>
+                    </div>
+                    <div id="current_address" class="mb-3" style="display: none; overflow:auto; height: 200px;">
+                        <label class="form-label">Current Address:</label>
+                        {% for address in address %}
+                            <div class="card mb-2 p-2 border  " >
+                                <label class="w-100">
+                                    <input type="radio" name="selected_address" value="{{ address.id }}" required>
+                                    <div class="ms-2 d-block">
+                                        <p class="card-text mb-0">
+                                            <strong>Address_line:</strong> {{ address.address_line }}<br>
+                                            <strong>City:</strong> {{ address.city }}<br>
+                                            <strong>State:</strong> {{ address.state }}<br>
+                                            <strong>Zip Code:</strong> {{ address.zip_code }}<br>
+                                            <strong>Country:</strong> {{ address.country }}
+                                        </p>
+                                    </div>
+                                </label>
+                            </div>
+                        {% endfor %}
+                        
+                    </div>
+                    
+                   
+                    <div class="mb-3">
+                        <label for="worker_count" class="form-label">Number of Workers:</label>
+                        <input type="number" id="worker_count" name="worker_count" class="form-control" min="1" placeholder="Enter the number of workers needed" required>
+                    </div>
+                   
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone Number:</label>
+                        <input type="tel" id="phone_number" name="phone_number" class="form-control" pattern="\d{10}" placeholder="Enter your 10-digit phone number" required>
+                        <div class="form-text">Please enter a valid 10-digit phone number.</div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">Hire</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleAddressFields() {
+            const addressOption = document.getElementById('address_option').value;
+            
+            const currentAddress = document.getElementById('current_address');
+            if (addressOption === 'current') {
+               
+                currentAddress.style.display = 'block';
+
+                // Navigate to another page
+                
+            } 
+            else {
+                window.location.href = "{% url 'address_page' %}";
+            }
+
+            window.addEventListener('DOMContentLoaded', function () {
+                toggleAddressFields(); });
+        }
+    </script>

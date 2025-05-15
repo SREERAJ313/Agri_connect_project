@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Product</title>
+  <style>
+    .form-container {
+      width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f8f8f8;
+    }
+    input, textarea, select {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+    label {
+      font-weight: bold;
+    }
+    .btn {
+      padding: 8px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .preview-img {
+    max-width: 150px;
+    max-height: 150px;
+    display: none;
+    margin-top: 10px;
+}
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Edit Product</h2>
+  <form method="POST" enctype="multipart/form-data" action="">
+
+    {% csrf_token %}
+    <label> Product id</label>
+  
+    <input type="number" name="product_id" value="{{ product.id }}" disabled>
+  
+    <label>Name</label>
+    <input type="text" name="p_name" value="{{ product.p_name }}">
+  
+    <label>Description</label>
+    <textarea name="description">{{ product.description }}</textarea>
+  
+    <label>Price</label>
+    <input type="number" name="price" value="{{ product.price }}">
+  
+    <label>Stock</label>
+    <input type="number" name="stock" value="{{ product.stock }}">
+
+
+    <label class="form-label">Category</label>
+    <br>
+    <select class="form- " name="categories" >
+        <br> 
+        <option selected>{{product.categories}}</option>
+        <option value="products">Products</option>
+        <option value="tools">Tools</option>
+        <option value="seeds">Seeds</option>
+        <option value="fertilizer">Fertilizers</option>
+        <option value="machinery">Machinery</option>
+    </select>
+
+    <br>
+    <br>
+    
+    <label>Image (optional)</label>
+    <input type="file" class="form-control" id="productImage" accept="image/*"  name="image_url" >
+    <img id="preview" class="preview-img img-thumbnail">
+    <br>
+    
+  
+
+  
+    <button type="submit" class="btn" id="productImage">Update</button>
+  </form>
+  
+</div>
+<script>
+    document.getElementById('productImage').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('preview');
+                img.src = e.target.result;
+                img.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    </script>
+</body>
+</html>
