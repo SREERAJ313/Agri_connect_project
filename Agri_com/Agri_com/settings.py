@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app1',
     # 'livereload',
-    'django_browser_reload',
+    # 'django_browser_reload',
    
 ]
 

@@ -168,25 +168,30 @@ def sell_page(request):
             return redirect('seller_area')
 
     return render(request, 'sell_page.html')
-# def product_list(request):
+def product_list(request):
 
-#     return render(request, 'seller_area.html')  
+    return render(request, 'seller_area.html')  
 def seller_area(request):
     temp=request.session['U_id']
     seller=Seller.objects.get(id=temp)
    
     product_list=Product.objects.filter(seller=seller)
     product_Image=Product_Image.objects.filter(product__in=product_list)
+    
     dict_products= {
         'products':product_list,
         'product_Image':product_Image,
     }
 
     return render(request, 'seller_area.html',dict_products) 
+
 def seller_reg(request):
     temp=request.session['U_id']
-    if Seller.objects.filter(seller=temp).exists():
+    check_U=User.objects.get(id=temp)
+
+    if Seller.objects.filter(seller=check_U).exists():
         return redirect('seller_area') 
+        
   
     if request.method == 'POST':
         check_U=User.objects.get(id=temp)
